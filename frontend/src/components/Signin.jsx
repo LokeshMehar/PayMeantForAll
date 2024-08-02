@@ -151,7 +151,8 @@ const Signin = () => {
         try {
             const response = await signin({ username, password });
             console.log('Signin successful:', response);
-            setAuthToken(response.token); // Store the token
+            setAuthToken(response.data.token); // Store the token
+            
             setSuccess(true);
             setError('');
             navigate('/dashboard'); // Redirect to dashboard after successful signin

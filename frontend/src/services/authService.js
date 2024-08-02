@@ -5,7 +5,7 @@ import api from './api';
 // Sign up a new user
 export const signup = async (userData) => {
     try {
-        const response = await api.post('/user/signup', userData);
+        const response = await api.post('/user/register', userData);
         return response;
     } catch (error) {
         throw error.response.data; // Forward the error message
@@ -15,7 +15,7 @@ export const signup = async (userData) => {
 // Sign in an existing user
 export const signin = async (credentials) => {
     try {
-        const response = await api.post('/user/signin', credentials);
+        const response = await api.post('/user/login', credentials);
         return response;
     } catch (error) {
         throw error.response.data; // Forward the error message

@@ -2,6 +2,7 @@ const User = require('../models/User');
 const Account = require('../models/Account');
 const asyncHandler = require('../utils/asyncHandler');
 const { generateToken } = require('../utils/jwtUtils');
+const { json } = require('express');
 
 const registerUser = asyncHandler(async (req, res) => {
     const { username, password, firstName, lastName } = req.body;
@@ -79,6 +80,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 const getUsers = asyncHandler(async (req, res) => {
+    console.log("to the moon");
     const filter = req.query.filter || '';
     const users = await User.find({
         $or: [
@@ -86,6 +88,7 @@ const getUsers = asyncHandler(async (req, res) => {
             { lastName: { $regex: filter, $options: 'i' } }
         ]
     }).select('-password');
+    console.log(users);
 
     res.json(users);
 });

@@ -5,6 +5,7 @@ export const getAuthToken = () => {
 };
 
 export const setAuthToken = (token) => {
+    console.log(token);
     localStorage.setItem('authToken', token);
 };
 
