@@ -13,22 +13,23 @@ const getBalance = asyncHandler(async (req, res) => {
 });
 
 const transferFunds = asyncHandler(async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     const { to, amount } = req.body;
-
-    // console.log("in the account controller at transferfunds");
 
     if (to === req.user._id.toString()) {
         res.status(400);
         throw new Error('Cannot transfer money to yourself');
     }
 
-    const session = await mongoose.startSession();
-    session.startTransaction();
 
     try {
+       
         const fromAccount = await Account.findOne({ userId: req.user._id }).session(session);
         const toAccount = await Account.findOne({ userId: to }).session(session);
-
+        
+        console.log(toAccount)
+        console.log(fromAccount)
         if (!fromAccount || !toAccount) {
             throw new Error('One or both accounts not found');
         }
@@ -37,11 +38,25 @@ const transferFunds = asyncHandler(async (req, res) => {
             throw new Error('Insufficient balance');
         }
 
-        fromAccount.balance -= amount;
-        toAccount.balance += amount;
 
-        await fromAccount.save();
-        await toAccount.save();
+        await Account.updateOne({ userId: req.user._id }, { $inc: { balance: -amount } }).session(session);
+    await Account.updateOne({ userId: to }, { $inc: { balance: amount } }).session(session);
+
+        // fromAccount.balance -= amount;
+        // await fromAccount.save();
+        // console.log(toAccount.balance);
+        // toAccount.balance += amount;
+        // await toAccount.save();
+        // console.log(toAccount.balance);
+
+        // console.log(toAccount)
+        // console.log(fromAccount)
+
+        console.log("--------------------------------")
+
+        
+        console.log(toAccount)
+        console.log(fromAccount)
 
         await session.commitTransaction();
         res.json({ message: 'Transfer successful' });
@@ -54,3 +69,6 @@ const transferFunds = asyncHandler(async (req, res) => {
 });
 
 module.exports = { getBalance, transferFunds };
+
+
+
