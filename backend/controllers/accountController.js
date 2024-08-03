@@ -15,6 +15,8 @@ const getBalance = asyncHandler(async (req, res) => {
 const transferFunds = asyncHandler(async (req, res) => {
     const { to, amount } = req.body;
 
+    // console.log("in the account controller at transferfunds");
+
     if (to === req.user._id.toString()) {
         res.status(400);
         throw new Error('Cannot transfer money to yourself');

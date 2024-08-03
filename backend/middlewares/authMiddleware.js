@@ -4,6 +4,8 @@ const asyncHandler = require('../utils/asyncHandler');
 
 const protect = asyncHandler(async (req, res, next) => {
     let token;
+    
+    console.log("here in the protect");
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {

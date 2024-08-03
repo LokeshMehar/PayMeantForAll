@@ -120,7 +120,7 @@ const Signup = () => {
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={`p-2 rounded bg-${theme}-800`}
+                    className={`p-2 text-black rounded bg-${theme}-800`}
                     required
                 />
                 <input
@@ -128,7 +128,7 @@ const Signup = () => {
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className={`p-2 rounded bg-${theme}-800`}
+                    className={`p-2 text-black rounded bg-${theme}-800`}
                     required
                 />
                 <input
@@ -136,7 +136,7 @@ const Signup = () => {
                     placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className={`p-2 rounded bg-${theme}-800`}
+                    className={`p-2 text-black rounded bg-${theme}-800`}
                     required
                 />
                 <input
@@ -144,7 +144,7 @@ const Signup = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`p-2 rounded bg-${theme}-800`}
+                    className={`p-2 text-black rounded bg-${theme}-800`}
                     required
                 />
                 <button

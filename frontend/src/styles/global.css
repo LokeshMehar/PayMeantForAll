@@ -4,25 +4,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Additional custom styles can go here */
-
-
-
-
+/* Additional custom styles */
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding: 0;
+.bg-light-900 {
+    background-color: #f0f0f0; /* Light background */
 }
 
-a {
-    text-decoration: none;
+.bg-dark-900 {
+    background-color: #1a1a1a; /* Dark background */
 }
 
-button {
-    cursor: pointer;
+.text-light-100 {
+    color: #1a1a1a; /* Dark text for light mode */
+}
+
+.text-dark-100 {
+    color: #f0f0f0; /* Light text for dark mode */
+}
+
+/* Responsive styles for Navbar */
+@media (max-width: 768px) {
+    .navbar {
+        display: flex;
+        flex-direction: column;
+    }
 }

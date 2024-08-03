@@ -133,10 +133,11 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import themeAtom from '../store/themeAtom';
 import { signin } from '../services/authService';
 import { setAuthToken } from '../utils/helpers';
+import authAtom from '../store/authAtom';
 
 const Signin = () => {
     const [theme] = useRecoilState(themeAtom);
@@ -144,6 +145,8 @@ const Signin = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
+    const isLoggedIn = useRecoilValue(authAtom);
+    const setIsLoggedIn = useSetRecoilState(authAtom);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -152,8 +155,11 @@ const Signin = () => {
             const response = await signin({ username, password });
             console.log('Signin successful:', response);
             setAuthToken(response.data.token); // Store the token
+            setIsLoggedIn(true);
+            
             
             setSuccess(true);
+
             setError('');
             navigate('/dashboard'); // Redirect to dashboard after successful signin
         } catch (err) {
@@ -173,7 +179,7 @@ const Signin = () => {
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={`p-2 rounded bg-${theme}-800`}
+                    className={`p-2 text-black rounded bg-${theme}-800`}
                     required
                 />
                 <input
@@ -181,7 +187,7 @@ const Signin = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`p-2 rounded bg-${theme}-800`}
+                    className={`p-2 text-black rounded bg-${theme}-800`}
                     required
                 />
                 <button
